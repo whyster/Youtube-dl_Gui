@@ -1,0 +1,13 @@
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\bin\Debug\netcoreapp3.0\Youtube-dl_Gui.exe
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\bin\Debug\netcoreapp3.0\Youtube-dl_Gui.deps.json
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\bin\Debug\netcoreapp3.0\Youtube-dl_Gui.runtimeconfig.json
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\bin\Debug\netcoreapp3.0\Youtube-dl_Gui.runtimeconfig.dev.json
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\bin\Debug\netcoreapp3.0\Youtube-dl_Gui.dll
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\bin\Debug\netcoreapp3.0\Youtube-dl_Gui.pdb
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-dl_Gui.csprojAssemblyReference.cache
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-dl_Gui.AssemblyInfoInputs.cache
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-dl_Gui.AssemblyInfo.cs
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-dl_Gui.dll
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-dl_Gui.pdb
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube_dl_Gui.Form1.resources
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-dl_Gui.csproj.GenerateResource.cache
