@@ -11,3 +11,4 @@ D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-d
 D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-dl_Gui.pdb
 D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube_dl_Gui.Form1.resources
 D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube-dl_Gui.csproj.GenerateResource.cache
+D:\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\obj\Debug\netcoreapp3.0\Youtube_dl_Gui.ThumbNail.resources

@@ -20,12 +20,15 @@ namespace Youtube_dl_Gui {
             // throw new System.NotImplementedException();
             
             string url = video_textbox.Text;
-            TextBox test = new TextBox();
+            ThumbNail test = new ThumbNail();
             
-            test.Name = $"test{counter++}";
-            test.Text = $"test{counter}";
-            
+            // TextBox test = new TextBox();
+            //
+            // test.Name = $"test{counter++}";
+            // test.Text = $"test{counter}";
+            //
             test.Dock = DockStyle.Top;
+            test.RichText = $"test{counter++}";
             
             videos_panel.Controls.Add(test);
             

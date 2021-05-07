@@ -59,9 +59,10 @@
             // 
             this.videos_panel.AutoScroll = true;
             this.videos_panel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.videos_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.videos_panel.Location = new System.Drawing.Point(12, 58);
             this.videos_panel.Name = "videos_panel";
-            this.videos_panel.Size = new System.Drawing.Size(230, 302);
+            this.videos_panel.Size = new System.Drawing.Size(419, 302);
             this.videos_panel.TabIndex = 4;
             // 
             // Form1
