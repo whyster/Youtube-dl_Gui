@@ -28,6 +28,7 @@
             this.video_textbox = new System.Windows.Forms.TextBox();
             this.add_url_button = new System.Windows.Forms.Button();
             this.videos_panel = new System.Windows.Forms.Panel();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.SuspendLayout();
             // 
             // _url_label
@@ -62,7 +63,7 @@
             this.videos_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.videos_panel.Location = new System.Drawing.Point(12, 58);
             this.videos_panel.Name = "videos_panel";
-            this.videos_panel.Size = new System.Drawing.Size(419, 302);
+            this.videos_panel.Size = new System.Drawing.Size(421, 302);
             this.videos_panel.TabIndex = 4;
             // 
             // Form1
@@ -79,6 +80,8 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ColorDialog colorDialog1;
 
         private System.Windows.Forms.Panel videos_panel;
 

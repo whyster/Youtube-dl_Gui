@@ -12,9 +12,12 @@ namespace Youtube_dl_Gui {
             set => this.thumbnail_box.Image = value;
         }
 
-        public string RichText {
-            get => this.description_rich.Text;
-            set => this.description_rich.Text = value;
+        public RichTextBox Rich {
+            get => this.description_rich;
+        }
+
+        public Panel panel { // TODO: Show selection with panel
+            get => this.panel1;
         }
     }
 }
