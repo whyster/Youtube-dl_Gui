@@ -23,12 +23,12 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this._url_label = new System.Windows.Forms.Label();
             this.video_textbox = new System.Windows.Forms.TextBox();
             this.add_url_button = new System.Windows.Forms.Button();
             this.videos_panel = new System.Windows.Forms.Panel();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.SuspendLayout();
             // 
             // _url_label
@@ -80,8 +80,6 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
-
-        private System.Windows.Forms.ColorDialog colorDialog1;
 
         private System.Windows.Forms.Panel videos_panel;
 

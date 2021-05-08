@@ -3,8 +3,13 @@
   <component name="UserContentModel">
     <attachedFolders />
     <explicitIncludes>
+      <Path>.gitignore</Path>
       <Path>LICENSE</Path>
       <Path>README.md</Path>
+      <Path>Youtube-dl_Gui/Form1.cs</Path>
+      <Path>Youtube-dl_Gui/Program.cs</Path>
+      <Path>Youtube-dl_Gui/ThumbNail.cs</Path>
+      <Path>Youtube-dl_Gui/bin</Path>
     </explicitIncludes>
     <explicitExcludes />
   </component>
