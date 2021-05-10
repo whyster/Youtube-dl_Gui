@@ -11,6 +11,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Youtube-dl_Gui/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Youtube-dl_Gui/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Youtube-dl_Gui/Form1.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Youtube-dl_Gui/Form1.Designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Youtube-dl_Gui/Form1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Youtube-dl_Gui/Form1.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Youtube-dl_Gui/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Youtube-dl_Gui/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Youtube-dl_Gui/ThumbNail.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Youtube-dl_Gui/ThumbNail.Designer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Youtube-dl_Gui/ThumbNail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Youtube-dl_Gui/ThumbNail.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Youtube-dl_Gui/Youtube-dl_Gui.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Youtube-dl_Gui/Youtube-dl_Gui.csproj" afterDir="false" />
@@ -33,15 +34,18 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/01AB0978-A39D-4F9D-8E15-93AAAF43E569/113/NativeWindow.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3AF4A867-99E6-48CE-9223-DE32448B0B30/2F/FileSystem.Windows.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Youtube-dl_Gui/Form1.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/.git/info/exclude" />
       <option value="$PROJECT_DIR$/.gitignore" />
+      <option value="$USER_HOME$/AppData/Local/Temp/youtube-dl/video_data/4.json" />
+      <option value="$PROJECT_DIR$/Youtube-dl_Gui/Form1.Designer.cs" />
+      <option value="$PROJECT_DIR$/Youtube-dl_Gui/Form1.cs" />
       <option value="$PROJECT_DIR$/Youtube-dl_Gui/ThumbNail.Designer.cs" />
       <option value="$PROJECT_DIR$/Youtube-dl_Gui/ThumbNail.cs" />
-      <option value="$PROJECT_DIR$/Youtube-dl_Gui/Form1.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1sGfUNbUrsp6rISRhF9eBMWzm9F" />
@@ -51,12 +55,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.6342477" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.30707964" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="XThreadsFramesViewSplitterKey" value="0.27821523" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.27320954" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -105,7 +109,21 @@
       <workItem from="1620515791420" duration="408000" />
       <workItem from="1620516349781" duration="156000" />
       <workItem from="1620516993290" duration="1486000" />
-      <workItem from="1620518523396" duration="1669000" />
+      <workItem from="1620518523396" duration="1858000" />
+      <workItem from="1620523876980" duration="5376000" />
+      <workItem from="1620533896496" duration="549000" />
+      <workItem from="1620599831053" duration="1734000" />
+      <workItem from="1620606192724" duration="348000" />
+      <workItem from="1620606861783" duration="303000" />
+      <workItem from="1620607272552" duration="929000" />
+      <workItem from="1620610102611" duration="1359000" />
+      <workItem from="1620611894031" duration="311000" />
+      <workItem from="1620612257553" duration="670000" />
+      <workItem from="1620613173870" duration="946000" />
+      <workItem from="1620601495867" duration="2510000" />
+      <workItem from="1620604352729" duration="392000" />
+      <workItem from="1620604866577" duration="145000" />
+      <workItem from="1620605358373" duration="4000000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore">
       <created>1620510731614</created>
@@ -135,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620511184344</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Basic youtube-dl title scraping of url">
+      <created>1620520394465</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1620520394465</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,38 +186,7 @@
     <MESSAGE value="gitignore update" />
     <MESSAGE value="bin delete" />
     <MESSAGE value="obj removal" />
-    <option name="LAST_COMMIT_MESSAGE" value="obj removal" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Youtube-dl_Gui/Form1.cs</url>
-          <line>91</line>
-          <properties documentPath="C:\Users\aleks\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\Form1.cs" initialLine="91" containingFunctionPresentation="method 'add_url_Click'">
-            <startOffsets>
-              <option value="2947" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3071" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Youtube-dl_Gui/Form1.cs</url>
-          <line>93</line>
-          <properties documentPath="C:\Users\aleks\RiderProjects\Youtube-dl_Gui\Youtube-dl_Gui\Form1.cs" initialLine="93" containingFunctionPresentation="method 'add_url_Click'">
-            <startOffsets>
-              <option value="3085" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3130" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Basic youtube-dl title scraping of url" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic youtube-dl title scraping of url" />
   </component>
 </project>

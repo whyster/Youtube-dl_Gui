@@ -53,7 +53,7 @@
             this.add_url_button.TabIndex = 3;
             this.add_url_button.Text = "Add Url";
             this.add_url_button.UseVisualStyleBackColor = true;
-            this.add_url_button.Click += new System.EventHandler(this.add_url_Click);
+            this.add_url_button.Click += new System.EventHandler(this.add_url_click);
             // 
             // videos_panel
             // 
@@ -82,7 +82,7 @@
 
         private System.Windows.Forms.Panel videos_panel;
 
-        private System.Windows.Forms.Panel panel1;
+        
 
         private System.Windows.Forms.Button add_url_button;
 

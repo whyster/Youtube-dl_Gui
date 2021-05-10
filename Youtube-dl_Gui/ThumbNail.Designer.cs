@@ -43,6 +43,7 @@ namespace Youtube_dl_Gui {
             this.BackPanel.Name = "BackPanel";
             this.BackPanel.Size = new System.Drawing.Size(402, 94);
             this.BackPanel.TabIndex = 0;
+            this.BackPanel.Click += new System.EventHandler(this.BackPanel_Click);
             // 
             // RichText
             // 
@@ -58,6 +59,7 @@ namespace Youtube_dl_Gui {
             this.RichText.Size = new System.Drawing.Size(226, 94);
             this.RichText.TabIndex = 3;
             this.RichText.Text = "";
+            this.RichText.Click += new System.EventHandler(this.RichText_Click);
             // 
             // ThumbPicture
             // 
@@ -72,6 +74,7 @@ namespace Youtube_dl_Gui {
             this.ThumbPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ThumbPicture.TabIndex = 2;
             this.ThumbPicture.TabStop = false;
+            this.ThumbPicture.Click += new System.EventHandler(this.ThumbPicture_Click);
             // 
             // ThumbNail
             // 
@@ -90,9 +93,10 @@ namespace Youtube_dl_Gui {
         }
 
         private System.Windows.Forms.PictureBox ThumbPicture;
-        private System.Windows.Forms.RichTextBox RichText;
 
         private System.Windows.Forms.Panel BackPanel;
+
+        private System.Windows.Forms.RichTextBox RichText;
 
         #endregion
     }

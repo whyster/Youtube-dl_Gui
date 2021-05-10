@@ -20,4 +20,9 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Imazen.WebP" Version="10.0.1" />
+      <PackageReference Include="libwebp.v140" Version="0.5.0.2" />
+    </ItemGroup>
+
 </Project>

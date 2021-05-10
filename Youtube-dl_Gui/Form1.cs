@@ -1,149 +1,242 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.IO;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
+using System.Net.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Imazen.WebP;
+
 
 namespace Youtube_dl_Gui {
     public partial class Form1 : Form {
-        private string youtubedl_path;
-        private readonly string[] YOUTUBE_PATHS;
-        private Random _random;
+        private readonly Random _random;
+        private readonly string _youtubedl_path;
+        private HttpClient web_client;
+
         public Form1() {
             InitializeComponent();
+            clean_temp_files();
             _random = new Random();
-            YOUTUBE_PATHS = new string[] {
+            string[] youtube_paths = new[] {
                 ""
             };
-            youtubedl_path = find_youtubedl(YOUTUBE_PATHS);
-            if (youtubedl_path is null) youtubedl_error();
-            
+            _youtubedl_path = Find_Youtubedl(youtube_paths);
+            if (_youtubedl_path is null) youtubedl_error();
+            web_client = new HttpClient();
+
+            web_client.DefaultRequestHeaders.Add("User-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36");
         }
 
         private void youtubedl_error() {
-            MessageBox.Show("Could not find youtube dl", "Youtube Downloader", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("Could not find youtube dl", "Youtube Downloader", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
             throw new FileNotFoundException("Youtube-dl not found");
         }
 
-        // private void highlight_click(object sender, EventArgs e) {
-        //     ThumbNail thumb_control = sender as ThumbNail;
-        //     thumb_control.panel.
-        // }
-
 
         /// <summary>
-        /// Finds the location of youtube-dl 
+        ///     Finds the location of youtube-dl
         /// </summary>
         /// <returns> The path of youtube-dl executable </returns>
-        private string find_youtubedl(string[] paths_to_search) {
+        private string Find_Youtubedl(string[] paths_to_search) {
             string running_directory = Directory.GetCurrentDirectory();
-            foreach (string start_path in paths_to_search) {
-                
-                string result = Recursive_Search(running_directory + start_path, "youtube-dl.exe");
-                if (result != null) {
-                    return result;
-                }
-            }
-            return null;
+            return paths_to_search
+                .Select(start_path => Recursive_Search(running_directory + start_path, "youtube-dl.exe"))
+                .FirstOrDefault(result => result != null);
         }
 
         private string Recursive_Search(string path, string name) {
             foreach (string entry in Directory.EnumerateFileSystemEntries(path)) {
                 string[] split_entry = entry.Split('.');
-                
+
                 Console.WriteLine(entry);
-                
+
                 if (split_entry.Length > 1 && split_entry[^1].Length > 0) {
                     string filename = entry.Split('\\')[^1];
-                    if (filename == name) {
-                        return entry;
-                    }
+                    if (filename == name) return entry;
 
                     continue;
                 }
 
                 string result = Recursive_Search(entry, name);
-                if (result != null) {
-                    return result;
-                }
+                if (result != null) return result;
             }
 
             return null;
         }
+        
 
 
-        private void add_url_Click(object sender, EventArgs e) {
+        private void add_url_click(object sender, EventArgs e) {
+            add_url_background(); // TODO Rework thumbnail generator to not suspend UI thread
+        }
+
+        private void add_url_background() {
             string url = video_textbox.Text;
-            ThumbNail test = new ThumbNail();
 
-            test.Dock = DockStyle.Top;
+            IEnumerable<ThumbNail> thumbnails = Generate_Thumbnails(url);
+
+            foreach (ThumbNail thumbnail in thumbnails) {
+                videos_panel.Controls.Add(thumbnail);
+            }
+            Debug.WriteLine("Finished Work");
+        }
 
 
-            string json_path = get_video_data(url);
-            Dictionary<string, object> video_data = JsonSerializer.Deserialize<Dictionary<string, object>>(File.ReadAllText(json_path));
 
-            string title = video_data["title"].ToString();
-            test.Rich.Text = title;
-            test.Rich.Select(0, title.Length);
-            test.Rich.SelectionFont = new Font(test.Rich.Font, FontStyle.Bold);
-            test.Selected = true;
-
-            videos_panel.Controls.Add(test);
-    
-
-            // Debug.WriteLine(videos_panel.Controls.Count);
+        // private void Select_Click(object sender, EventArgs e) {
+        //     Debug.WriteLine("clicked");
+        //     ThumbNail thumb_sender = sender as ThumbNail;
+        //     if (thumb_sender != null) thumb_sender.Selected = !thumb_sender.Selected;
+        // }
+        
+        private IEnumerable<ThumbNail> Generate_Thumbnails(string playlist_url) {
+            string json_path = Get_video_json(playlist_url);
+            var json_object = JsonSerializer.Deserialize<Dictionary<string, object>>(File.ReadAllText(json_path));
+            var entries = json_object.GetValueOrDefault("entries", null);
+            if (entries is null) {
+                // Single video
+                yield return Generate_From_Data(json_object["webpage_url"].ToString(), json_object["title"].ToString(),
+                    json_object["channel"].ToString(), json_object["thumbnail"].ToString());
+            }
+            else {
+                var entry_array = JsonSerializer.Deserialize<Dictionary<string, object>[]>(entries.ToString());
+                foreach (var entry in entry_array) {
+                    yield return Generate_From_Data(entry["webpage_url"].ToString(), entry["title"].ToString(),
+                        entry["channel"].ToString(), entry["thumbnail"].ToString());
+                }
+            }
         }
 
 
         /// <summary>
-        /// Uses youtube-dl to get video data
+        ///     Generate a thumbnail from a video url
+        /// </summary>
+        /// <param name="url"> Video URL </param>
+        /// <returns> A thumbnail with formatted title </returns>
+        private ThumbNail Generate_From_Data(string url, string title, string channel, string thumbnail) {
+            ThumbNail ret = new();
+
+            if (title != null) {
+                ret.Rich.Text = title;
+            }
+
+            ret.Dock = DockStyle.Top;
+
+            ret.Rich.Text += $"\n{channel}";
+
+            ret.Rich.Select(0, title.Length);
+            ret.Rich.SelectionFont = new Font(new FontFamily("Arial"), 14f, FontStyle.Bold);
+            ret.Rich.Select(title.Length + 1, ret.Rich.Text.Length);
+            
+            ret.Rich.SelectionFont = new Font(new FontFamily("Arial"), 12f, FontStyle.Regular);
+
+            ret.Image = Get_Formatted_Image(thumbnail);
+
+            
+            ret.Selected = true;
+            ret.url = url;
+            
+            // ret.MouseClick += Select_Click;
+            // ret.Rich.Click += Select_Click;
+            
+            
+            return ret;
+        }
+
+        private Image Get_Formatted_Image(string url) {
+            Image image = null;
+
+            var valid_urls = new Dictionary<string, Func<string, Image>>();
+            valid_urls.Add(".jpg", value: (url) => {
+                Stream stream = web_client.GetStreamAsync(url).Result;
+                
+                try {
+                    return Image.FromStream(stream);
+                }
+                catch (Exception e) {
+                    return new Bitmap(168, 94);
+                }
+            });
+            valid_urls.Add(".png", (url) => {
+                return Image.FromStream(web_client.GetStreamAsync(url).Result);
+            });
+
+            valid_urls.Add(".webp", (url) => {
+                byte[] arry = web_client.GetByteArrayAsync(url).Result;
+                Image temp_image = new SimpleDecoder().DecodeFromBytes(arry, arry.Length);
+                return temp_image;
+            });
+
+            string extension_result = valid_urls.Keys.FirstOrDefault(extension => url.Contains(extension));
+            var possible_func = valid_urls.GetValueOrDefault(extension_result, null);
+            if (possible_func is not null) {
+                image = possible_func(url);
+            }
+
+            
+
+            return image ?? throw new FormatException("Unsupported image format");
+        }
+
+
+        /// <summary>
+        ///     Uses youtube-dl to get video data
         /// </summary>
         /// <param name="url"> The url of the video to analyze</param>
         /// <returns> The path to the json </returns>
-        private string get_video_data(string url) {
+        private string Get_video_json(string url) {
             string temp_path = Path.GetTempPath();
             string data_path = temp_path + "youtube-dl/video_data/";
             check_dir_make(data_path);
             string json_path = $"{data_path}{_random.Next(10 ^ 5)}.json";
 
-            using (Process youtube_process = new Process()) {
-                youtube_process.StartInfo.FileName = youtubedl_path;
-                youtube_process.StartInfo.Arguments = $"-j {url}";
-                youtube_process.StartInfo.RedirectStandardOutput = true;
-                youtube_process.Start();
-                using (StreamWriter file_writer = new StreamWriter(json_path)) {
-                    file_writer.Write(youtube_process.StandardOutput.ReadToEnd());
+            using Process youtubeProcess = new Process {
+                StartInfo = {
+                    FileName = _youtubedl_path,
+                    Arguments = $"-J {url}",
+                    RedirectStandardOutput = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    CreateNoWindow = true
                 }
-                youtube_process.WaitForExit();
-                return json_path;
+            };
+
+
+
+            youtubeProcess.Start();
+            using (StreamWriter fileWriter = new StreamWriter(json_path)) {
+                fileWriter.Write(youtubeProcess.StandardOutput.ReadToEnd());
             }
-            
-            
+
+            youtubeProcess.WaitForExit();
+            return json_path;
         }
 
         /// <summary>
-        /// Check if a directory exists. If it doesnt make one
+        ///     Check if a directory exists. If it doesnt make one
         /// </summary>
         /// <param name="path"> The path to the directory </param>
         private void check_dir_make(string path) {
-            if (!Directory.Exists(path)) 
+            if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
         }
 
         private void clean_temp_files() {
             string temp_path = Path.GetTempPath();
             string data_path = temp_path + "youtube-dl/";
+            if (!Directory.Exists(data_path))
+                return;
             Directory.Delete(data_path, true);
         }
+
+
     }
 }
 
