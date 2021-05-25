@@ -18,18 +18,22 @@ namespace Youtube_dl_Gui {
         private readonly Random _random;
         private readonly string _youtubedl_path;
         private HttpClient web_client;
+        private string download_path;
 
         public Form1() {
             InitializeComponent();
             clean_temp_files();
             _random = new Random();
-            string[] youtube_paths = new[] {
+            string[] youtube_paths = {
                 ""
             };
             _youtubedl_path = Find_Youtubedl(youtube_paths);
             if (_youtubedl_path is null) youtubedl_error();
+            
+            
+            
             web_client = new HttpClient();
-
+            
             web_client.DefaultRequestHeaders.Add("User-agent",
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36");
         }
@@ -39,7 +43,7 @@ namespace Youtube_dl_Gui {
                 MessageBoxIcon.Error);
             throw new FileNotFoundException("Youtube-dl not found");
         }
-
+    
 
         /// <summary>
         ///     Finds the location of youtube-dl
@@ -72,30 +76,26 @@ namespace Youtube_dl_Gui {
             return null;
         }
         
-
-
+        
+        
         private void add_url_click(object sender, EventArgs e) {
             add_url_background(); // TODO Rework thumbnail generator to not suspend UI thread
         }
 
-        private void add_url_background() {
+        private async void add_url_background() {
             string url = video_textbox.Text;
 
             IEnumerable<ThumbNail> thumbnails = Generate_Thumbnails(url);
 
+            int counter = 0;
             foreach (ThumbNail thumbnail in thumbnails) {
                 videos_panel.Controls.Add(thumbnail);
+                if (counter++ % 20 == 0)
+                    await Task.Delay(20); // A small delay un-suspends ui control 
             }
             Debug.WriteLine("Finished Work");
         }
-
-
-
-        // private void Select_Click(object sender, EventArgs e) {
-        //     Debug.WriteLine("clicked");
-        //     ThumbNail thumb_sender = sender as ThumbNail;
-        //     if (thumb_sender != null) thumb_sender.Selected = !thumb_sender.Selected;
-        // }
+        
         
         private IEnumerable<ThumbNail> Generate_Thumbnails(string playlist_url) {
             string json_path = Get_video_json(playlist_url);
@@ -185,6 +185,44 @@ namespace Youtube_dl_Gui {
 
             return image ?? throw new FormatException("Unsupported image format");
         }
+        private void download_button_Click(object sender, EventArgs e) {
+            Download_Videos();
+            // throw new System.NotImplementedException();
+        }
+
+        private void Download_Videos() {
+            foreach (ThumbNail selected_video in Get_Selected_Videos()) {
+                Download_Video_From_Url(selected_video.url);
+            }
+        }
+
+        private void Download_Video_From_Url(string url) {
+            using Process youtubeProcess = new Process {
+                StartInfo = {
+                    // WorkingDirectory = download_path,
+                    FileName = _youtubedl_path,
+                    Arguments = $"-o {download_path}\\%(title)s.%(ext)s {url}",
+                    RedirectStandardOutput = false,
+                    WindowStyle = ProcessWindowStyle.Normal,
+                    CreateNoWindow = false
+                }
+            };
+            youtubeProcess.Start();
+            youtubeProcess.WaitForExit();
+        }
+        
+        private IEnumerable<ThumbNail> Get_Selected_Videos() {
+            Stack<ThumbNail> ThumbNail_Stack = new Stack<ThumbNail>();
+            foreach (ThumbNail control in videos_panel.Controls.OfType<ThumbNail>()) {
+                if (control.Selected) {
+                    ThumbNail_Stack.Push(control);
+                }
+            }
+
+            return ThumbNail_Stack;
+        }
+        
+
 
 
         /// <summary>
@@ -237,12 +275,12 @@ namespace Youtube_dl_Gui {
         }
 
 
+        private void path_button_Click(object sender, EventArgs e) {
+            DialogResult result = folderBrowserDialog1.ShowDialog();
+            if (result == DialogResult.OK) {
+                download_path = folderBrowserDialog1.SelectedPath;
+                textBox1.Text = download_path;
+            }
+        }
     }
 }
-
-/*
- * 
-{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
-\pard\f0\fs18 hello\par
-}
- */
