@@ -201,7 +201,7 @@ namespace Youtube_dl_Gui {
                 StartInfo = {
                     // WorkingDirectory = download_path,
                     FileName = _youtubedl_path,
-                    Arguments = $"-o {download_path}\\%(title)s.%(ext)s {url}",
+                    Arguments = $"-o \"{download_path}\"\\%(title)s.%(ext)s {url}",
                     RedirectStandardOutput = false,
                     WindowStyle = ProcessWindowStyle.Normal,
                     CreateNoWindow = false
